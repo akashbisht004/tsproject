@@ -21,7 +21,7 @@ const contentTypes=['image', 'video', 'article', 'audio'];
 const contentSchema=new mongoose.Schema({
     link:{
         type: String,
-        requried: true
+        required: true
     },
     tittle:{
         type: String,
@@ -38,9 +38,9 @@ const contentSchema=new mongoose.Schema({
     userId:{
         type: Types.ObjectId,
         ref:'User',
-        requrired: true
+        required: true
     }
-});
+},);
 
 const tagSchema=new mongoose.Schema({
     title:{
