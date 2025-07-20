@@ -1,20 +1,20 @@
+import { useNavigate } from "react-router-dom"
 
 function Header() {
-  return (
-    <div className="w-full h-12  bg-blue-400 flex flex-row justify-around p-1">
-        <div className="py-2 text-xl hover:text-white transition">
-            Brainly
-        </div>
-        <div className="flex flex-row ">
-            <div className="bg-blue-500 rounded-md border-black border-1 hover:bg-blue-300 transition mx-3 py-1">
-                <span className="p-4">Create Link</span>
+    const navigate = useNavigate();
+    return (
+        <header className="w-full bg-neutral-900 border-b border-neutral-800 flex items-center justify-between px-8 py-3 shadow-sm">
+            <div className="font-bold text-2xl tracking-tight select-none text-white">second brain</div>
+            <div className="flex gap-3">
+                <button
+                    className="border border-white text-white rounded-md px-4 py-1 font-medium hover:bg-neutral-800 transition-colors"
+                    onClick={() => { navigate("/content") }}
+                >
+                    Create
+                </button>
             </div>
-            <div className="bg-blue-500 rounded-md border-black border-1 hover:bg-blue-300 transition mx-3 py-1">
-                <span className="p-4">Join Link</span>
-            </div>
-        </div>
-    </div>
-  )
+        </header>
+    );
 }
 
-export default Header
+export default Header   

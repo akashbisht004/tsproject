@@ -1,22 +1,21 @@
-import Content from "./components/Content"
-import Header from "./components/Header"
+
+import {Route,BrowserRouter,Routes} from "react-router-dom";
+import Home from "./pages/Home";
+import ContentPage from "./pages/ContentPage";
+import { LandingPage } from "./pages/LandingPage";
+import './index.css'
 
 function App() {
   
 
   return (
-    <>
-      <div className="min-h-screen bg-blue-300">
-        <Header/>
-        <div className="bg-amber-400 min-h-screen flex items-center justify-evenly gap-20 flex-wrap">
-          <Content/>
-          <Content/>
-          <Content/>
-          <Content/>
-        </div>
-      </div>
-       
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="/home" element={<Home/>}/>
+        <Route path="/content" element={<ContentPage/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

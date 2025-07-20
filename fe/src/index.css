@@ -1,1 +1,15 @@
 @import "tailwindcss";
+/* Your custom styles */
+
+
+html {
+  @apply bg-neutral-900;
+  min-height: 100vh;
+  position: relative;
+  transition: background 0.3s;
+}
+
+#root, main, header, .bg-neutral-900 {
+  position: relative;
+  z-index: 1;
+}
