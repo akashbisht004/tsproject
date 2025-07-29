@@ -4,9 +4,10 @@ import { contentModel, linkModel, userModel } from "./model";
 import connectDb from "./db";
 import { authMiddleware } from "./middleware";
 import { random } from "./utils";
-
+import cors from "cors";
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post("/register", register);
 app.post("/signin", signin);

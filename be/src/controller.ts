@@ -33,7 +33,8 @@ export const signin = async (req: Request, res: Response) => {
 
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
-       res.status(401).send("Invalid credentials");
+        res.status(401).send("Invalid credentials");
+        return
     }
 
     const token = jwt.sign(
