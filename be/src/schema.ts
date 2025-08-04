@@ -16,8 +16,6 @@ const userSchema=new mongoose.Schema({
     }
 });
 
-const contentTypes=['image', 'video', 'article', 'audio'];
-
 const contentSchema=new mongoose.Schema({
     link:{
         type: String,
@@ -25,11 +23,6 @@ const contentSchema=new mongoose.Schema({
     },
     tittle:{
         type: String,
-        required: true
-    },
-    type:{
-        type: String,
-        enum: contentTypes,
         required: true
     },
     tags:[{

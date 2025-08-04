@@ -3,7 +3,12 @@ import { useState } from "react";
 import { signinLink } from "../config";
 import { useNavigate } from "react-router-dom";
 
-export const SignIn = ({setShowSignIn}) => {
+type HeaderProps = {
+  setShowSignIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+
+export const SignIn = ({setShowSignIn}:HeaderProps) => {
     const navigate=useNavigate();
 
     const [username,setUsername]=useState("");

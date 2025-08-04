@@ -1,40 +1,25 @@
 import axios from "axios";
-import { registerLink } from "../config";
+import { contentLink } from "../config";
 import { useState } from "react";
 
 type HeaderProps = {
-  setShowRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddContent: React.Dispatch<React.SetStateAction<boolean>>;
 };
+export const ContentAdd = ({setAddContent}:HeaderProps) => {
 
-
-function Register({ setShowRegister }:HeaderProps) {
-    
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-
-  const onSubmitHandler = async (e: React.FormEvent) => {
-    e.preventDefault(); // prevent page reload
-
-    try {
-      const response = await axios.post(registerLink, {
-        username,
-        password,
-        email,
-      });
-      console.log(response.data);
-
-      setShowRegister(false);
-    } catch (err) {
-      console.error("Registration failed:", err);
+    const [link,setLink]=useState("");
+    const [userId,]
+    const onSubmitHandler=async()=>{
+        const response=await axios(contentLink,{
+            link, userId, tittle, tags
+        })
     }
-  };
 
-  return (
+ return (
     <div className="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
       <div className="flex justify-end mb-4">
         <button
-          onClick={() => setShowRegister(false)}
+          onClick={() => setAddContent(false)}
           className="text-gray-500 hover:text-red-500 text-xl font-bold"
         >
           &times;
@@ -80,5 +65,3 @@ function Register({ setShowRegister }:HeaderProps) {
     </div>
   );
 }
-
-export default Register;

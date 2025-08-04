@@ -13,9 +13,9 @@ app.post("/register", register);
 app.post("/signin", signin);
 
 app.post("/content", authMiddleware, async (req, res) => {
-  const { link, userId, tittle, tags, type } = req.body;
+  const { link, userId, tittle, tags } = req.body;
   try {
-    await contentModel.create({ link, userId, tittle, tags, type });
+    await contentModel.create({ link, userId, tittle, tags });
     res.json({ message: "content added successfully" });
   } catch (e) {
     res.json((e as Error).message);
