@@ -7,17 +7,17 @@ type HeaderProps = {
 };
 export const ContentAdd = ({setAddContent}:HeaderProps) => {
 
-    const [link,setLink]=useState("");
-    const [userId,]
-    const onSubmitHandler=async()=>{
-        const response=await axios(contentLink,{
-            link, userId, tittle, tags
-        })
-    }
+    // const [link,setLink]=useState("");
+    // const [userId,]
+    // const onSubmitHandler=async()=>{
+    //     const response=await axios(contentLink,{
+    //         link, userId, tittle, tags
+    //     })
+    // }
 
  return (
     <div className="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
-      <div className="flex justify-end mb-4">
+      {/* <div className="flex justify-end mb-4">
         <button
           onClick={() => setAddContent(false)}
           className="text-gray-500 hover:text-red-500 text-xl font-bold"
@@ -61,7 +61,7 @@ export const ContentAdd = ({setAddContent}:HeaderProps) => {
         >
           Register
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }
