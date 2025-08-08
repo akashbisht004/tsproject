@@ -3,7 +3,7 @@ import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 
 dotenv.config();
-const secret=process.env.SECRET_KEY;
+const secret=process.env.SECRET_KEY || "SECRET";
 
 export const  encode=(email:string)=>{
     const token=jwt.sign(email,secret as string);

@@ -8,7 +8,7 @@ interface AuthRequest extends Request {
 const prisma=new PrismaClient();
 
 export const addContentHandler=async (req:Request,res:Response)=>{
-    const [title,url,authorId]=req.body;
+    const {title,url,authorId}=req.body;
     try{
         await prisma.content.create({
             data:{
@@ -36,7 +36,12 @@ export const getAllContentHandler=async (req:AuthRequest,res:Response)=>{
 }
 
 export const getContentHandler=async (req:Request,res:Response)=>{
-    const contentId=Number(req.params);
+ const contentId = Number(req.params.contentId);
+    if (!req.params.contentId || isNaN(contentId)) {
+    res.status(400).json({ error: "Invalid or missing contentId parameter" });
+    return;
+  }
+
     try{
         const content=await prisma.content.findUnique({
             where:{id:contentId}
@@ -49,7 +54,7 @@ export const getContentHandler=async (req:Request,res:Response)=>{
 }
 
 export const deleteContentHandler=async (req:Request,res:Response)=>{
-    const contentId=Number(req.params);
+    const contentId=Number(req.params.contentId);
     try{
         await prisma.content.delete({
             where:{id:contentId}
@@ -62,7 +67,8 @@ export const deleteContentHandler=async (req:Request,res:Response)=>{
 }
 
 export const updateContentHandler=async (req:Request,res:Response)=>{
-    const {contentId,url,title}=req.body;
+    const contentId=Number(req.params.contentId);
+    const {url,title}=req.body;
     try{
         await prisma.content.update({
             where:{id:contentId},

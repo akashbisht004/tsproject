@@ -1,14 +1,9 @@
 import bcrypt from 'bcrypt'
 import {Request,Response} from "express";
-import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
 import { PrismaClient } from '../../generated/prisma';
 import { encode } from '../middleware';
 
 const prisma=new PrismaClient();
-
-dotenv.config();
-const SECRET_KEY=process.env.SECRET_KEY || "MY_SECRET";
 
 export const registerHandler=async (req:Request,res:Response)=>{
     try{
