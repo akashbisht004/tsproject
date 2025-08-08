@@ -1,12 +1,12 @@
-import express, { NextFunction,Request,Response } from "express";
+import { NextFunction,Request,Response } from "express";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 const secret=process.env.SECRET_KEY;
 
-export const  encode=(username:string)=>{
-    const token=jwt.sign(username,secret as string);
+export const  encode=(email:string)=>{
+    const token=jwt.sign(email,secret as string);
     return token;
 }
 
@@ -18,10 +18,9 @@ export const decode=(payload: string,token:string)=>{
 
 
 export const authMiddleware=async (req:Request,res:Response,next:NextFunction)=>{
-    const username=req.body?.username;
-
+    const email=req.body?.email;
     const token=req.header('Authorization')?.replace('Bearer ','');
-    if(decode(username,token as string)){
+    if(decode(email,token as string)){
         next();
     }else{
         res.status(401).send('Please authenticate');
