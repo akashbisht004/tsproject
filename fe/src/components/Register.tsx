@@ -1,5 +1,4 @@
-import axios from "axios";
-import { registerLink } from "../config";
+import { api,REGISTER_ENDPOINT } from "../lib/api";
 import { useState } from "react";
 
 type HeaderProps = {
@@ -14,16 +13,14 @@ function Register({ setShowRegister }:HeaderProps) {
   const [email, setEmail] = useState("");
 
   const onSubmitHandler = async (e: React.FormEvent) => {
-    e.preventDefault(); // prevent page reload
-
+    e.preventDefault(); 
     try {
-      const response = await axios.post(registerLink, {
+      const response = await api.post(REGISTER_ENDPOINT, {
         username,
         password,
         email,
       });
       console.log(response.data);
-
       setShowRegister(false);
     } catch (err) {
       console.error("Registration failed:", err);

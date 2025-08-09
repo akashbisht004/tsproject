@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
-import { signinLink } from "../config";
+import { api,SIGNIN_ENDPOINT } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
@@ -11,16 +10,15 @@ type HeaderProps = {
 export const SignIn = ({setShowSignIn}:HeaderProps) => {
     const navigate=useNavigate();
 
-    const [username,setUsername]=useState("");
+    const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
 
     const onSubmitHandler=async (e:React.FormEvent)=>{
         e.preventDefault();
            try {
-      const response = await axios.post(signinLink, {
-        username,
-        password,
-      });
+      const response = await api.post(SIGNIN_ENDPOINT,{
+        email,password
+      })
       console.log(response.data);
       localStorage.setItem("token",response.data.token)
       setShowSignIn(false);
@@ -48,10 +46,10 @@ export const SignIn = ({setShowSignIn}:HeaderProps) => {
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Email"
           className="p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-black dark:text-white"
           onChange={(e) => {
-            setUsername(e.target.value);
+            setEmail(e.target.value);
           }}
         />
         <input

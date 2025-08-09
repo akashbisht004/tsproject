@@ -1,29 +1,39 @@
-import { NextFunction,Request,Response } from "express";
-import * as jwt from "jsonwebtoken";
-import * as dotenv from "dotenv";
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import { IUser } from "./utils";
 
 dotenv.config();
-const secret=process.env.SECRET_KEY || "SECRET";
+const secret = process.env.SECRET_KEY || "SECRET";
 
-export const  encode=(email:string)=>{
-    const token=jwt.sign(email,secret as string);
+export const encode=(user:IUser)=>{
+    const token=jwt.sign(user,secret as string);
     return token;
 }
 
-export const decode=(payload: string,token:string)=>{
-    const decoded=jwt.verify(token,secret as string);
-    if(decoded==payload) return true;
-    return false;
+export const decode=(token:string)=>{
+    return jwt.verify(token,secret as string);
 }
 
+export const authMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
-export const authMiddleware=async (req:Request,res:Response,next:NextFunction)=>{
-    const email=req.body?.email;
-    const token=req.header('Authorization')?.replace('Bearer ','');
-    if(decode(email,token as string)){
-        next();
-    }else{
-        res.status(401).send('Please authenticate');
+    if (!token) {
+       res.status(401).json({ error: "No token provided" });
+       return;
     }
-   
-}
+
+    const decoded = decode(token);
+    (req as any).user = decoded as IUser;
+
+    next();
+  } catch (error) {
+     res.status(401).json({ error: "Invalid or expired token" });
+     return;
+  }
+};

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import Content from "../components/Content"
 import Header from "../components/Header"
-import {contentLink} from "../config"
-import axios from "axios"
+import {api, CONTENT_ENDPOINT } from "../lib/api"
 import { ContentAdd } from "../components/ContentAdd"
 
 function Home() {
@@ -10,10 +9,17 @@ function Home() {
   const [addContent,setAddContent]=useState(false);
 
   useEffect(()=>{
-    axios.get(contentLink)
-    .then((response)=>{
-      setContent(response.data);
-    })
+    const getAllContent=async()=>{
+      try{
+        const res=await api.get(CONTENT_ENDPOINT);
+        console.log(res);
+        console.log(res.data);
+      if(res.status===200) setContent(res.data.data);
+      }catch(e){
+        console.log(e);
+      }
+    }
+    getAllContent();
   },[])
 
   return (

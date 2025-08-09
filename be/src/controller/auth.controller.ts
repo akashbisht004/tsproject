@@ -29,7 +29,7 @@ export const signinHandler = async (req: Request, res: Response) => {
         res.status(401).send("Invalid credentials");
         return
     }
-    const token = encode(email);
+    const token = encode(user)
     res.status(200).json({ token });
   } catch (e) {
     res.status(500).send({ error: (e as Error).message });

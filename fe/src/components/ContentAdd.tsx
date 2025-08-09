@@ -1,23 +1,30 @@
-import axios from "axios";
-import { contentLink } from "../config";
 import { useState } from "react";
-
+import { api,CONTENT_ENDPOINT } from "../lib/api";
 type HeaderProps = {
   setAddContent: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export const ContentAdd = ({setAddContent}:HeaderProps) => {
 
-    // const [link,setLink]=useState("");
-    // const [userId,]
-    // const onSubmitHandler=async()=>{
-    //     const response=await axios(contentLink,{
-    //         link, userId, tittle, tags
-    //     })
-    // }
+   const [title,setTitle]=useState("");
+   const [url,setUrl]=useState("");
+   const [message,setMessage]=useState("");
+
+   const onSubmitHandler=async()=>{
+    try{
+      const res=await api.post(CONTENT_ENDPOINT,{
+        title,url
+      });
+      if(res.status===200)
+      setMessage("Content Added");
+    }catch(e){
+      console.log((e as Error).message);
+      setMessage("Failed to load content");
+    }
+   }
 
  return (
     <div className="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
-      {/* <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4">
         <button
           onClick={() => setAddContent(false)}
           className="text-gray-500 hover:text-red-500 text-xl font-bold"
@@ -26,32 +33,24 @@ export const ContentAdd = ({setAddContent}:HeaderProps) => {
         </button>
       </div>
       <h2 className="text-2xl font-bold text-gray-900 text-center dark:text-white mb-6">
-        Create Account
+        Add content
       </h2>
 
       <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Title"
           className="p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-black dark:text-white"
           onChange={(e) => {
-            setUsername(e.target.value);
+            setTitle(e.target.value);
           }}
         />
         <input
-          type="email"
-          placeholder="Email"
+          type="text"
+          placeholder="url"
           className="p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-black dark:text-white"
           onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="p-3 rounded-lg bg-gray-100 dark:bg-neutral-700 text-black dark:text-white"
-          onChange={(e) => {
-            setPassword(e.target.value);
+            setUrl(e.target.value);
           }}
         />
 
@@ -61,7 +60,7 @@ export const ContentAdd = ({setAddContent}:HeaderProps) => {
         >
           Register
         </button>
-      </form> */}
+      </form>
     </div>
   );
 }

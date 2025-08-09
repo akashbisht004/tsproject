@@ -4,7 +4,7 @@ import { SignIn } from "../components/SignIn";
 import { useNavigate } from "react-router-dom"; 
 
 export const LandingPage = () => {
-    const navigate=useNavigate();
+  const navigate=useNavigate();
   const [showRegister, setShowRegister] = useState(false);
   const [showSignIn, setShowSignIn]=useState(false);
 

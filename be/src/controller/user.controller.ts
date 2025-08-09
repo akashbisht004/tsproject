@@ -1,14 +1,11 @@
 import { PrismaClient } from "../../generated/prisma";
 import { Request, Response } from "express";
 
-interface AuthRequest extends Request {
-  userId?: number;
-}
-
 const prisma=new PrismaClient();
 
 export const addContentHandler=async (req:Request,res:Response)=>{
-    const {title,url,authorId}=req.body;
+    const {title,url}=req.body;
+    const authorId=req.user.id;
     try{
         await prisma.content.create({
             data:{
@@ -22,8 +19,8 @@ export const addContentHandler=async (req:Request,res:Response)=>{
     }
 }
 
-export const getAllContentHandler=async (req:AuthRequest,res:Response)=>{
-    const authorId=req.userId ?? 1;
+export const getAllContentHandler=async (req:Request,res:Response)=>{
+    const authorId=req.user.id;
     try{
         const content=await prisma.content.findMany({
             where:{authorId}

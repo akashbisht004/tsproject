@@ -6,3 +6,9 @@ export function random(len:number){
     }
     return ans;
 }
+
+export type IUser={
+    email:string;
+    username:string;
+    id:number;
+}
