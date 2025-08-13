@@ -37,9 +37,9 @@ function Home() {
       )}
       <main className="bg-gray-50 dark:bg-neutral-900 min-h-screen flex flex-col items-center py-10 transition-colors">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-5xl px-4">
-          { content.map((cont)=>(
-            <Content {...cont}/>
-          ))}
+          {content.map(cont=>
+            <Content key={cont.id} cont={cont}/>
+          )}
         </div>
       </main>
     </>

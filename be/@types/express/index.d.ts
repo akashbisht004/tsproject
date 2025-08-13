@@ -1,5 +1,5 @@
-
-import { IUser } from "../utils";
+import type { IUser } from "../../src/utils"
+import * as express from 'express'
 
 declare global {
   namespace Express {

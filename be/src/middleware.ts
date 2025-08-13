@@ -22,15 +22,12 @@ export const authMiddleware = (
 ) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
-
     if (!token) {
        res.status(401).json({ error: "No token provided" });
        return;
     }
-
     const decoded = decode(token);
-    (req as any).user = decoded as IUser;
-
+    req.user = decoded as IUser;
     next();
   } catch (error) {
      res.status(401).json({ error: "Invalid or expired token" });

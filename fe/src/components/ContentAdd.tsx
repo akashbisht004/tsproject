@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { api,CONTENT_ENDPOINT } from "../lib/api";
+
 type HeaderProps = {
   setAddContent: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -9,21 +10,28 @@ export const ContentAdd = ({setAddContent}:HeaderProps) => {
    const [url,setUrl]=useState("");
    const [message,setMessage]=useState("");
 
-   const onSubmitHandler=async()=>{
+   const onSubmitHandler=async(e:React.FormEvent)=>{
+    e.preventDefault();
     try{
       const res=await api.post(CONTENT_ENDPOINT,{
         title,url
       });
+
       if(res.status===200)
       setMessage("Content Added");
+    setTimeout(()=>{},5000)
     }catch(e){
       console.log((e as Error).message);
-      setMessage("Failed to load content");
+      console.log("Failed to load content");
     }
    }
 
  return (
     <div className="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-2xl w-[90%] max-w-md">
+      {message!="" &&(
+        <><p>{message}</p>
+        </>
+      ) }
       <div className="flex justify-end mb-4">
         <button
           onClick={() => setAddContent(false)}

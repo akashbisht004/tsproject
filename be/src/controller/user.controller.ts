@@ -1,15 +1,16 @@
 import { PrismaClient } from "../../generated/prisma";
 import { Request, Response } from "express";
+import { IUser } from "../utils";
 
 const prisma=new PrismaClient();
 
 export const addContentHandler=async (req:Request,res:Response)=>{
     const {title,url}=req.body;
-    const authorId=req.user.id;
+    const user=req.user as IUser;
     try{
         await prisma.content.create({
             data:{
-                title,url,authorId
+                title,url,authorId:user.id
             }
         });
         res.status(200).json({message:"content added succesfully"});
@@ -20,10 +21,10 @@ export const addContentHandler=async (req:Request,res:Response)=>{
 }
 
 export const getAllContentHandler=async (req:Request,res:Response)=>{
-    const authorId=req.user.id;
+    const user=req.user as IUser;
     try{
         const content=await prisma.content.findMany({
-            where:{authorId}
+            where:{authorId:user.id}
         });
         res.status(200).json({data:content});
     }catch(e){
